@@ -3,22 +3,39 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"slices"
+	"strconv"
 )
 
 func main() {
 	place := "лугу"
 	action := "пасется"
 	animal := "коров"
-	randNum := rand.Intn(100)
-	changeAnimalEnding(randNum, place, action, animal)
+	numberOfAnimal := rand.Intn(100)
+	resString := "На " + place + " " + action + " " + strconv.Itoa(numberOfAnimal) + " " + animal
+
+	ending := getEndingBySwitchCase(numberOfAnimal)
+	fmt.Println(resString + ending)
 }
 
-func changeAnimalEnding(numberOfCow int, place string, action string, animal string) {
-	if numberOfCow%10 == 1 && numberOfCow != 11 {
-		fmt.Println("На "+place+" "+action, numberOfCow, animal+"а")
-	} else if numberOfCow%10 >= 2 && numberOfCow%10 <= 4 && numberOfCow/10 != 1 {
-		fmt.Println("На "+place+" "+action, numberOfCow, animal+"ы")
+func getEndingBySwitchCase(numberOfAnimal int) string {
+	sliceBetweenTowFore := []int{2, 3, 4}
+	switch {
+	case slices.Index(sliceBetweenTowFore, numberOfAnimal%10) != -1 && (numberOfAnimal <= 11 || numberOfAnimal >= 20):
+		return "ы"
+	case numberOfAnimal%10 == 1 && numberOfAnimal != 11:
+		return "а"
+	default:
+		return ""
+	}
+}
+
+func getEndingByIfElse(numberOfAnimal int) string {
+	if numberOfAnimal%10 == 1 && numberOfAnimal != 11 {
+		return "а"
+	} else if numberOfAnimal%10 >= 2 && numberOfAnimal%10 <= 4 && numberOfAnimal/10 != 1 {
+		return "ы"
 	} else {
-		fmt.Println("На "+place+" "+action, numberOfCow, animal)
+		return ""
 	}
 }
