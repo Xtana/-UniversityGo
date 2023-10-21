@@ -15,7 +15,6 @@ func main() {
 	resString := "На " + place + " " + action + " " + strconv.Itoa(numberOfAnimal) + " " + animal
 
 	ending := getEndingBySwitchCase(numberOfAnimal)
-	ending = getEndingByIfElse(numberOfAnimal)
 	fmt.Println(resString + ending)
 }
 
