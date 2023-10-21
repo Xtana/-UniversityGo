@@ -1,17 +1,36 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func main() {
-	errorMessage := "Введено неверное число итераций"
-	iterationsNumber := 100
+	errorMessage := "Ошибка"
 
-	if сheckingIterationInput(iterationsNumber) {
+	iterationsNumber := -1
+	var iterations string
+	fmt.Print("Введите количество итераций: ")
+	fmt.Scanf("%s\n", &iterations)
+
+	if isNumber(iterations) == true {
+		iterationsNumber, _ = strconv.Atoi(iterations)
+	}
+
+	if сheckingIterationInput(iterationsNumber) && isNumber(strconv.Itoa(iterationsNumber)) {
 		piWallis := piCalculationByWallis(iterationsNumber)
 		piLeibniz := piCalculationByLeibniz(iterationsNumber)
 		printPi(iterationsNumber, piWallis, piLeibniz)
 	} else {
 		fmt.Print(errorMessage)
+	}
+}
+
+func isNumber(str string) bool {
+	if _, err := strconv.Atoi(str); err == nil {
+		return true
+	} else {
+		return false
 	}
 }
 
